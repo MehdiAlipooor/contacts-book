@@ -17,6 +17,10 @@ export class ORM {
     return this.jsonFileManager.getItemByValue(phone);
   }
 
+  updatePhone(username: string, phone: string) {
+    return this.jsonFileManager.updateRow(username, phone);
+  }
+
   removeByUsername(userName: string) {
     this.jsonFileManager.removeRow(userName);
   }

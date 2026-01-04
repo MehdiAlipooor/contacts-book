@@ -56,7 +56,7 @@ export class JsonFileManager {
 
   updateRow(key: string, value: string) {
     if (!this.cache[key]) {
-      return null;
+      throw new NoItemExeption('username not found');
     }
 
     const newCache = this.cache;
