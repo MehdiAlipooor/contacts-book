@@ -1,4 +1,4 @@
 export const getContactByUsernameConstants = {
-  command: 'get-contact-by-username',
+  command: 'get-by-username',
   description: 'get a contact by username',
 };

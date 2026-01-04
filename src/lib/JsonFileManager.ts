@@ -3,7 +3,7 @@ import { convertBufferToJson } from '../utils/convertBufferToJson';
 import { getFileAsync } from '../utils/getFile';
 import { getFilePathFromRoot } from '../utils/getFilePathFromRoot';
 import { insertToFile } from '../utils/insertToFile';
-import { DuplicatedException, NoItemExeption, SavingFileException } from './exceptions';
+import { DuplicatedException, NoItemExeption, SavingFileException } from './Exceptions';
 
 const filePath = getFilePathFromRoot('./../../contacts.json');
 

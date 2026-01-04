@@ -1,4 +1,4 @@
-import { NoItemExeption } from '../../../lib/exceptions';
+import { NoItemExeption } from '../../../lib/Exceptions';
 import { JsonFileManager } from '../../../lib/JsonFileManager';
 import { ORM } from '../../../lib/ORM';
 import { SpinnerLoader } from '../../../utils/spinnerLoader';

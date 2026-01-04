@@ -1,4 +1,4 @@
-import { DuplicatedException } from '../../../lib/exceptions';
+import { DuplicatedException } from '../../../lib/Exceptions';
 import { JsonFileManager } from '../../../lib/JsonFileManager';
 import { ORM } from '../../../lib/ORM';
 import { SpinnerLoader } from '../../../utils/spinnerLoader';
