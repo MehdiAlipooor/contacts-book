@@ -1,4 +1,4 @@
-import { PromptDefinition } from '../../../lib/createCliModule/types';
+import { PromptDefinition } from '../../lib/createCliModule/types';
 
 export const menuSchama: () => PromptDefinition[] = () => {
   return [

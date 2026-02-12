@@ -1,6 +1,6 @@
-import { createCliModule } from '../../../lib/createCliModule';
-import { CliCommand } from '../../../types';
-import { runCommand } from '../../../utils/runCommand';
+import { createCliModule } from '../../lib/createCliModule';
+import { CliCommand } from '../../types';
+import { runCommand } from '../../utils/runCommand';
 import { menuSchama } from './schema';
 
 const prompts = menuSchama();

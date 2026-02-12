@@ -1,5 +1,4 @@
 import { PromptDefinition } from '../../../lib/createCliModule/types';
-import { Schema } from '../../../types';
 import { Validator } from '../../../utils/validator';
 
 export const getContantByPhoneSchema: () => PromptDefinition[] = () => [

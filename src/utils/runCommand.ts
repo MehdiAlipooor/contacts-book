@@ -1,4 +1,4 @@
-import { menu } from '../cli/commands/menu';
+import { menu } from '../ui/menu';
 import { COMMANDS } from '../constants';
 import { CliCommand } from '../types';
 

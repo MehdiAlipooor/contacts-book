@@ -1,6 +1,7 @@
 import { NoItemException } from '../../../lib/Exceptions';
 import { JsonFileManager } from '../../../lib/JsonFileManager';
 import { ORM } from '../../../lib/ORM';
+import { goBackButton } from '../../../ui/goBackButton';
 import { handleError } from '../../../utils/errorHandler';
 import { SpinnerLoader } from '../../../utils/spinnerLoader';
 import { wait } from '../../../utils/wait';
@@ -19,5 +20,7 @@ export const removeContactHandler: RemoveContactHandler = async ({ username }) =
     spinnerLoader.success('Contact removed');
   } catch (err) {
     handleError(err, spinnerLoader);
+  } finally {
+    goBackButton();
   }
 };

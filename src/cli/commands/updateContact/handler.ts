@@ -1,6 +1,7 @@
 import { NoItemException } from '../../../lib/Exceptions';
 import { JsonFileManager } from '../../../lib/JsonFileManager';
 import { ORM } from '../../../lib/ORM';
+import { goBackButton } from '../../../ui/goBackButton';
 import { handleError } from '../../../utils/errorHandler';
 import { SpinnerLoader } from '../../../utils/spinnerLoader';
 import { wait } from '../../../utils/wait';
@@ -20,5 +21,7 @@ export const updateContacHandler: RemoveContactHandler = async ({ username, phon
   } catch (err) {
     handleError(err, spinnerLoader);
     spinnerLoader.error('Contact update failed');
+  } finally {
+    goBackButton();
   }
 };
