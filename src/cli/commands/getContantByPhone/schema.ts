@@ -1,12 +1,13 @@
+import { PromptDefinition } from '../../../lib/createCliModule/types';
 import { Schema } from '../../../types';
 import { Validator } from '../../../utils/validator';
 
-export const getContantByPhoneSchema: Schema[] = [
+export const getContantByPhoneSchema: () => PromptDefinition[] = () => [
   {
     type: 'input',
-    name: 'phone',
+    key: 'phone',
     message: 'Phone:',
-    validate: (value: string) => {
+    validator: (value: string) => {
       const validator = new Validator(value);
       const error = validator.isEmpty().isValidMobile().getError();
 

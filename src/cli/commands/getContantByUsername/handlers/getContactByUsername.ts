@@ -1,8 +1,8 @@
-import { JsonFileManager } from '../../../lib/JsonFileManager';
-import { ORM } from '../../../lib/ORM';
-import { SpinnerLoader } from '../../../utils/spinnerLoader';
-import { wait } from '../../../utils/wait';
-import { GetContactByUsernameHandler } from './types';
+import { JsonFileManager } from '../../../../lib/JsonFileManager';
+import { ORM } from '../../../../lib/ORM';
+import { SpinnerLoader } from '../../../../utils/spinnerLoader';
+import { wait } from '../../../../utils/wait';
+import { GetContactByUsernameHandler } from '../types';
 
 const spinnerLoader = new SpinnerLoader();
 const jsonFileManager = new JsonFileManager();

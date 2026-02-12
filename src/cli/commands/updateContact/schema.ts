@@ -1,12 +1,13 @@
+import { PromptDefinition } from '../../../lib/createCliModule/types';
 import { Schema } from '../../../types';
 import { Validator } from '../../../utils/validator';
 
-export const updateContactSchema: Schema[] = [
+export const updateContactSchema: () => PromptDefinition[] = () => [
   {
     type: 'input',
-    name: 'username',
+    key: 'username',
     message: 'Username:',
-    validate: (value: string) => {
+    validator: (value: string) => {
       const validator = new Validator(value);
       const error = validator.isEmpty().getError();
 
@@ -15,9 +16,9 @@ export const updateContactSchema: Schema[] = [
   },
   {
     type: 'input',
-    name: 'phone',
+    key: 'phone',
     message: 'New phone:',
-    validate: (value: string) => {
+    validator: (value: string) => {
       const validator = new Validator(value);
       const error = validator.isValidMobile().getError();
 

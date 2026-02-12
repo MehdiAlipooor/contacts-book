@@ -1,12 +1,15 @@
 import { getContantByPhoneSchema } from './schema';
-import { getContantByPhoneConstants } from './constants';
-import { createCliModule } from '../../../utils/createCliModule';
 import { getContactByPhoneHandler } from './handler';
+import { createCliModule } from '../../../lib/createCliModule';
+
+async function action(response: Record<string, string>) {
+  await getContactByPhoneHandler({ phone: response.phone });
+}
+
+const prompts = getContantByPhoneSchema();
 
 export const getContantByPhone = () =>
   createCliModule({
-    command: getContantByPhoneConstants.command,
-    description: getContantByPhoneConstants.description,
-    action: getContactByPhoneHandler,
-    schema: getContantByPhoneSchema,
+    prompts,
+    action,
   });

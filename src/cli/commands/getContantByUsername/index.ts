@@ -1,12 +1,21 @@
+import { searchUsernameHandler } from './handlers/searchUsername';
+import { getContactByUsernameHandler } from './handlers/getContactByUsername';
+import { createCliModule } from '../../../lib/createCliModule';
 import { getContactByUsernameSchema } from './schema';
-import { getContactByUsernameConstants } from './constants';
-import { createCliModule } from '../../../utils/createCliModule';
-import { getContactByUsernameHandler } from './handler';
+
+async function onSearch(username: string) {
+  return await searchUsernameHandler(username);
+}
+
+async function action(response: Record<string, string>) {
+  const { username } = response;
+  return await getContactByUsernameHandler({ username });
+}
+
+const prompts = getContactByUsernameSchema({ onSearch });
 
 export const getContantByUsername = () =>
   createCliModule({
-    command: getContactByUsernameConstants.command,
-    description: getContactByUsernameConstants.description,
-    action: getContactByUsernameHandler,
-    schema: getContactByUsernameSchema,
+    prompts,
+    action,
   });

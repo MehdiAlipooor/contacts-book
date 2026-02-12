@@ -1,12 +1,12 @@
-import { Schema } from '../../../types';
+import { PromptDefinition } from '../../../lib/createCliModule/types';
 import { Validator } from '../../../utils/validator';
 
-export const removeContactSchema: Schema[] = [
+export const removeContactSchema: () => PromptDefinition[] = () => [
   {
     type: 'input',
-    name: 'username',
+    key: 'username',
     message: 'Username:',
-    validate: (value: string) => {
+    validator: (value: string) => {
       const validator = new Validator(value);
       const error = validator.isEmpty().getError();
 

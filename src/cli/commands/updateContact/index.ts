@@ -1,12 +1,16 @@
-import { updateContactConstants } from './constants';
 import { updateContactSchema } from './schema';
-import { createCliModule } from '../../../utils/createCliModule';
 import { updateContacHandler } from './handler';
+import { createCliModule } from '../../../lib/createCliModule';
+
+async function action(response: Record<string, string>) {
+  const { username, phone } = response;
+  await updateContacHandler({ username, phone });
+}
+
+const prompts = updateContactSchema();
 
 export const updateContact = () =>
   createCliModule({
-    command: updateContactConstants.command,
-    description: updateContactConstants.description,
-    action: updateContacHandler,
-    schema: updateContactSchema,
+    prompts,
+    action,
   });

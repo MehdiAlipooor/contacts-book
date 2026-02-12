@@ -1,10 +1,8 @@
-import { createCliModule } from '../../../utils/createCliModule';
-import { getContactListConstants } from './constants';
+import { createCliModule } from '../../../lib/createCliModule';
 import { getContractListHandler } from './handler';
 
 export const getContentsList = () =>
   createCliModule({
-    command: getContactListConstants.command,
-    description: getContactListConstants.description,
+    prompts: [],
     action: getContractListHandler,
   });

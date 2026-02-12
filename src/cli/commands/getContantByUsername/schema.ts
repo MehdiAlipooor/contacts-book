@@ -1,16 +1,18 @@
-import { Schema } from '../../../types';
-import { Validator } from '../../../utils/validator';
+import { PromptDefinition, SearchResponse } from '../../../lib/createCliModule/types';
 
-export const getContactByUsernameSchema: Schema[] = [
-  {
-    type: 'input',
-    name: 'username',
-    message: 'Username:',
-    validate: (value: string) => {
-      const validator = new Validator(value);
-      const error = validator.isEmpty().getError();
+type Props = {
+  onSearch: (input: string) => Promise<SearchResponse[]>;
+};
 
-      return error ?? true;
+export const getContactByUsernameSchema: ({ onSearch }: Props) => PromptDefinition[] = ({
+  onSearch,
+}) => {
+  return [
+    {
+      type: 'search',
+      key: 'username',
+      message: 'Username:',
+      onSearch,
     },
-  },
-];
+  ];
+};

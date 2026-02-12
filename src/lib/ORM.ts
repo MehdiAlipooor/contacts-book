@@ -13,6 +13,10 @@ export class ORM {
     return this.jsonFileManager.getItemByKey(userName);
   }
 
+  searchUsernames(userName: string) {
+    return this.jsonFileManager.searchKeys(userName);
+  }
+
   getByPhoneNumber(phone: string) {
     return this.jsonFileManager.getItemByValue(phone);
   }

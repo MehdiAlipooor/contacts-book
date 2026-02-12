@@ -65,6 +65,16 @@ export class JsonFileManager {
     this.saveToFile(newCache);
   }
 
+  /**
+   * Search for items where the key contains the search term
+   * @returns Array of matching key-value pairs
+   */
+  searchKeys(searchTerm: string): Array<{ key: string; value: string }> {
+    return Object.entries(this.cache)
+      .filter(([key]) => key.includes(searchTerm))
+      .map(([key, value]) => ({ key, value }));
+  }
+
   removeRow(key: string) {
     if (!this.cache[key]) {
       throw new NoItemExeption('no item exists');
