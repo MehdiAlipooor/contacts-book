@@ -1,3 +1,5 @@
+import { COMMANDS } from './constants';
+
 export interface JsonData {
   [key: string]: string;
 }
@@ -14,3 +16,5 @@ export interface CommandConstant {
   description: string;
   [key: string]: string;
 }
+
+export type CliCommand = keyof typeof COMMANDS;
