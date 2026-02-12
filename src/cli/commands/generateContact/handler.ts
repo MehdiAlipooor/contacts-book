@@ -9,7 +9,7 @@ const spinnerLoader = new SpinnerLoader();
 const jsonFileManager = new JsonFileManager();
 const orm = new ORM(jsonFileManager);
 
-export const generateContractHandler: GenerateContractHandler = async (username, phone) => {
+export const generateContractHandler: GenerateContractHandler = async ({ username, phone }) => {
   try {
     spinnerLoader.show();
     orm.addContract(username, phone);

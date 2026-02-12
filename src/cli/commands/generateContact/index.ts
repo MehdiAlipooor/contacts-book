@@ -1,16 +1,12 @@
-import inquirer from 'inquirer';
-
 import { generateContactSchema } from './schema';
 import { generateContactConstants } from './constants';
 import { generateContractHandler } from './handler';
-import { program } from '../../program';
+import { createCliModule } from '../../../utils/createCliModule';
 
-program
-  .command(generateContactConstants.command)
-  .description(generateContactConstants.description)
-  .action(async () => {
-    const { username, phone } = await inquirer.prompt(generateContactSchema);
-    generateContractHandler(username, phone);
-
-    (await import('./handler')).generateContractHandler(username, phone);
+export const generateContact = () =>
+  createCliModule({
+    command: generateContactConstants.command,
+    description: generateContactConstants.description,
+    action: generateContractHandler,
+    schema: generateContactSchema,
   });

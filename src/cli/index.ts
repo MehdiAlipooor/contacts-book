@@ -1,12 +1,20 @@
 import { program } from './program';
 
-import './commands/generateContact';
-import './commands/getContentsList';
-import './commands/getContantByUsername';
-import './commands/getContantByPhone';
-import './commands/removeContact';
-import './commands/updateContact';
+import { generateContact } from './commands/generateContact';
+import { getContentsList } from './commands/getContentsList';
+import { getContantByUsername } from './commands/getContantByUsername';
+import { getContantByPhone } from './commands/getContantByPhone';
+import { removeContact } from './commands/removeContact';
+import { updateContact } from './commands/updateContact';
 
-program.name('contact-phone').description('Contact Phone CLI').version('1.0.0');
+export function bootstrapCli() {
+  generateContact();
+  getContentsList();
+  getContantByUsername();
+  getContantByPhone();
+  removeContact();
+  updateContact();
 
-program.parse(process.argv);
+  program.name('contact-phone').description('Contact Phone CLI').version('1.0.0');
+  program.parse(process.argv);
+}

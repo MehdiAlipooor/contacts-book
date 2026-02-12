@@ -1,1 +1,3 @@
-import './cli';
+import { bootstrapCli } from './cli';
+
+bootstrapCli();

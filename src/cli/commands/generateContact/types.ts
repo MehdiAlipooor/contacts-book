@@ -1,1 +1,7 @@
-export type GenerateContractHandler = (username: string, phone: string) => Promise<void>;
+export type GenerateContractHandler = ({
+  username,
+  phone,
+}: {
+  username: string;
+  phone: string;
+}) => Promise<void>;

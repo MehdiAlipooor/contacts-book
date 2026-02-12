@@ -4,10 +4,11 @@ import { program } from '../../program';
 import { updateContactConstants } from './constants';
 import { updateContactSchema } from './schema';
 
-program
-  .command(updateContactConstants.command)
-  .description(updateContactConstants.description)
-  .action(async () => {
-    const { username, phone } = await inquirer.prompt(updateContactSchema);
-    await (await import('./handler')).updateContacHandler(username, phone);
-  });
+export const updateContact = () =>
+  program
+    .command(updateContactConstants.command)
+    .description(updateContactConstants.description)
+    .action(async () => {
+      const { username, phone } = await inquirer.prompt(updateContactSchema);
+      await (await import('./handler')).updateContacHandler(username, phone);
+    });
