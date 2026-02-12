@@ -5,7 +5,7 @@ import { getFilePathFromRoot } from '../utils/getFilePathFromRoot';
 import { insertToFile } from '../utils/insertToFile';
 import { DuplicatedException, NoItemExeption, SavingFileException } from './Exceptions';
 
-const filePath = getFilePathFromRoot('./../../contacts.json');
+const filePath = getFilePathFromRoot('./../storage/contacts.json');
 
 export class JsonFileManager {
   private file: JsonData = {};
