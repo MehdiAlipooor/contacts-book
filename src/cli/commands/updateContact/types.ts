@@ -1,1 +1,7 @@
-export type RemoveContactHandler = (username: string, phone: string) => Promise<void>;
+export type RemoveContactHandler = ({
+  username,
+  phone,
+}: {
+  username: string;
+  phone: string;
+}) => Promise<void>;

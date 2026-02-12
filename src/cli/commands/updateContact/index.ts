@@ -1,14 +1,12 @@
-import inquirer from 'inquirer';
-
-import { program } from '../../program';
 import { updateContactConstants } from './constants';
 import { updateContactSchema } from './schema';
+import { createCliModule } from '../../../utils/createCliModule';
+import { updateContacHandler } from './handler';
 
 export const updateContact = () =>
-  program
-    .command(updateContactConstants.command)
-    .description(updateContactConstants.description)
-    .action(async () => {
-      const { username, phone } = await inquirer.prompt(updateContactSchema);
-      await (await import('./handler')).updateContacHandler(username, phone);
-    });
+  createCliModule({
+    command: updateContactConstants.command,
+    description: updateContactConstants.description,
+    action: updateContacHandler,
+    schema: updateContactSchema,
+  });

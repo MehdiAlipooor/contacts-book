@@ -8,7 +8,7 @@ const spinnerLoader = new SpinnerLoader();
 const jsonFileManager = new JsonFileManager();
 const orm = new ORM(jsonFileManager);
 
-export const getContactByPhoneHandler: GetContactByPhoneHandler = async (phone: string) => {
+export const getContactByPhoneHandler: GetContactByPhoneHandler = async ({ phone }) => {
   spinnerLoader.show();
   await wait();
 

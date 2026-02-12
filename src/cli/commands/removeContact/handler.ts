@@ -9,7 +9,7 @@ const spinnerLoader = new SpinnerLoader();
 const jsonFileManager = new JsonFileManager();
 const orm = new ORM(jsonFileManager);
 
-export const removeContactHandler: RemoveContactHandler = async (username) => {
+export const removeContactHandler: RemoveContactHandler = async ({ username }) => {
   spinnerLoader.show();
   await wait();
 

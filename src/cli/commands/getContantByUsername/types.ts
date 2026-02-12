@@ -1,1 +1,1 @@
-export type GetContactByUsernameHandler = (username: string) => Promise<void>;
+export type GetContactByUsernameHandler = ({ username }: { username: string }) => Promise<void>;

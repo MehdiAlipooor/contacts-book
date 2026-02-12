@@ -1,14 +1,12 @@
-import inquirer from 'inquirer';
-
-import { program } from '../../program';
 import { getContantByPhoneSchema } from './schema';
 import { getContantByPhoneConstants } from './constants';
+import { createCliModule } from '../../../utils/createCliModule';
+import { getContactByPhoneHandler } from './handler';
 
 export const getContantByPhone = () =>
-  program
-    .command(getContantByPhoneConstants.command)
-    .description(getContantByPhoneConstants.description)
-    .action(async () => {
-      const { phone } = await inquirer.prompt(getContantByPhoneSchema);
-      await (await import('./handler')).getContactByPhoneHandler(phone);
-    });
+  createCliModule({
+    command: getContantByPhoneConstants.command,
+    description: getContantByPhoneConstants.description,
+    action: getContactByPhoneHandler,
+    schema: getContantByPhoneSchema,
+  });

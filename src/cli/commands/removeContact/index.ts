@@ -1,14 +1,12 @@
-import inquirer from 'inquirer';
-
-import { program } from '../../program';
 import { removeContactConstants } from './constants';
 import { removeContactSchema } from './schema';
+import { createCliModule } from '../../../utils/createCliModule';
+import { removeContactHandler } from './handler';
 
 export const removeContact = () =>
-  program
-    .command(removeContactConstants.command)
-    .description(removeContactConstants.description)
-    .action(async () => {
-      const { username } = await inquirer.prompt(removeContactSchema);
-      await (await import('./handler')).removeContactHandler(username);
-    });
+  createCliModule({
+    command: removeContactConstants.command,
+    description: removeContactConstants.description,
+    action: removeContactHandler,
+    schema: removeContactSchema,
+  });
