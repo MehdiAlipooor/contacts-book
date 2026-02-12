@@ -1,3 +1,5 @@
+import { handleError } from '../../utils/errorHandler';
+import { ExitPromptException } from '../Exceptions';
 import { commands } from './commands';
 import { PromptDefinition, CliModuleConfig } from './types';
 
@@ -24,7 +26,7 @@ async function executePrompt(
     return { key, value };
   }
 
-  throw new Error(`Unknown prompt type: ${(prompt as any).type}`);
+  throw new ExitPromptException(`Unknown prompt type: ${(prompt as any).type}`);
 }
 
 export const createCliModule = async (config: CliModuleConfig): Promise<void> => {
@@ -35,10 +37,7 @@ export const createCliModule = async (config: CliModuleConfig): Promise<void> =>
       const { key, value } = await executePrompt(prompt);
       answers[key] = value;
     } catch (error) {
-      if (error instanceof Error && error.name === 'ExitPromptError') {
-        console.log('Cancelled');
-        return;
-      }
+      handleError(error);
       throw error;
     }
   }

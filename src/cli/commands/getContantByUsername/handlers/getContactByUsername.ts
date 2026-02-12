@@ -1,5 +1,6 @@
 import { JsonFileManager } from '../../../../lib/JsonFileManager';
 import { ORM } from '../../../../lib/ORM';
+import { handleError } from '../../../../utils/errorHandler';
 import { SpinnerLoader } from '../../../../utils/spinnerLoader';
 import { wait } from '../../../../utils/wait';
 import { GetContactByUsernameHandler } from '../types';
@@ -22,7 +23,7 @@ export const getContactByUsernameHandler: GetContactByUsernameHandler = async ({
 
     spinnerLoader.success(response);
   } catch (err) {
-    console.log(err);
+    handleError(err, spinnerLoader);
   } finally {
     spinnerLoader.kill();
   }

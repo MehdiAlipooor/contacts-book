@@ -1,9 +1,10 @@
 import { JsonData } from '../types';
 import { convertBufferToJson } from '../utils/convertBufferToJson';
+import { handleError } from '../utils/errorHandler';
 import { getFileAsync } from '../utils/getFile';
 import { getFilePathFromRoot } from '../utils/getFilePathFromRoot';
 import { insertToFile } from '../utils/insertToFile';
-import { DuplicatedException, NoItemExeption, SavingFileException } from './Exceptions';
+import { DuplicatedException, NoItemException, SavingFileException } from './Exceptions';
 
 const filePath = getFilePathFromRoot('./../storage/contacts.json');
 
@@ -28,6 +29,7 @@ export class JsonFileManager {
       this.file = list;
       this.cache = list;
     } catch (error) {
+      handleError(error);
       this.file = {};
       this.cache = {};
     }
@@ -56,7 +58,7 @@ export class JsonFileManager {
 
   updateRow(key: string, value: string) {
     if (!this.cache[key]) {
-      throw new NoItemExeption('username not found');
+      throw new NoItemException('username not found');
     }
 
     const newCache = this.cache;
@@ -77,7 +79,7 @@ export class JsonFileManager {
 
   removeRow(key: string) {
     if (!this.cache[key]) {
-      throw new NoItemExeption('no item exists');
+      throw new NoItemException('no item exists');
     }
 
     const filteredCache = this.cache;

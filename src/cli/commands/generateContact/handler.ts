@@ -1,6 +1,7 @@
 import { DuplicatedException } from '../../../lib/Exceptions';
 import { JsonFileManager } from '../../../lib/JsonFileManager';
 import { ORM } from '../../../lib/ORM';
+import { handleError } from '../../../utils/errorHandler';
 import { SpinnerLoader } from '../../../utils/spinnerLoader';
 import { generateContactConstants } from './constants';
 import { GenerateContractHandler } from './types';
@@ -15,10 +16,6 @@ export const generateContractHandler: GenerateContractHandler = async ({ usernam
     orm.addContract(username, phone);
     spinnerLoader.success(generateContactConstants.onSuccessMessage);
   } catch (err) {
-    if (err instanceof DuplicatedException) {
-      spinnerLoader.error(err?.message);
-    }
-
-    spinnerLoader.error('Error');
+    handleError(err, spinnerLoader);
   }
 };

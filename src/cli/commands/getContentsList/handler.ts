@@ -1,5 +1,6 @@
 import { JsonFileManager } from '../../../lib/JsonFileManager';
 import { ORM } from '../../../lib/ORM';
+import { handleError } from '../../../utils/errorHandler';
 import { SpinnerLoader } from '../../../utils/spinnerLoader';
 import { wait } from '../../../utils/wait';
 
@@ -15,6 +16,6 @@ export async function getContractListHandler() {
     console.table(list);
     spinnerLoader.success('Done');
   } catch (err) {
-    spinnerLoader.error('Error');
+    handleError(err, spinnerLoader);
   }
 }
