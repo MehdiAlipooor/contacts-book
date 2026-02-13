@@ -1,9 +1,7 @@
-import { JsonFileManager } from "../lib/JsonFileManager";
+import type { JsonFileManager } from "../lib/JsonFileManager";
 
 export class ContactsRepository {
-  constructor(private jsonFileManager: JsonFileManager) {
-    this.jsonFileManager = new JsonFileManager();
-  }
+  constructor(private jsonFileManager: JsonFileManager) {}
 
   getList() {
     return this.jsonFileManager.getAllRecords();

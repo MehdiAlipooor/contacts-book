@@ -87,9 +87,10 @@ export class JsonFileManager {
       throw new NoItemException("no item exists");
     }
 
-    const newCache = { ...this.cache, [key]: value };
+    const filteredCache = this.cache;
+    delete filteredCache[key];
 
-    this.saveToFile(newCache);
+    this.saveToFile(filteredCache);
   }
 
   addRow(key: string, value: string) {
