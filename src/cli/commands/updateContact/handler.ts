@@ -11,19 +11,19 @@ const jsonFileManager = new JsonFileManager();
 const repository = new ContactsRepository(jsonFileManager);
 
 export const updateContacHandler: RemoveContactHandler = async ({
-	username,
-	phone,
+  username,
+  phone,
 }) => {
-	spinnerLoader.show();
-	await wait();
+  spinnerLoader.show();
+  await wait();
 
-	try {
-		repository.updatePhone(username, phone);
-		spinnerLoader.success("Contact updated");
-	} catch (err) {
-		handleError(err, spinnerLoader);
-		spinnerLoader.error("Contact update failed");
-	} finally {
-		goBackButton();
-	}
+  try {
+    await repository.updatePhone(username, phone);
+    spinnerLoader.success("Contact updated");
+  } catch (err) {
+    handleError(err, spinnerLoader);
+    spinnerLoader.error("Contact update failed");
+  } finally {
+    goBackButton();
+  }
 };
