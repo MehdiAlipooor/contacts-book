@@ -1,5 +1,4 @@
 import { writeFile } from "node:fs";
-
 import type { JsonData } from "../types";
 
 export async function insertToFile(

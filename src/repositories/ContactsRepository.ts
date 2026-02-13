@@ -1,6 +1,6 @@
-import { JsonFileManager } from "./JsonFileManager";
+import { JsonFileManager } from "../lib/JsonFileManager";
 
-export class ORM {
+export class ContactsRepository {
 	constructor(private jsonFileManager: JsonFileManager) {
 		this.jsonFileManager = new JsonFileManager();
 	}

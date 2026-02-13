@@ -1,5 +1,5 @@
 import { JsonFileManager } from "../../../lib/JsonFileManager";
-import { ORM } from "../../../lib/ORM";
+import { ContactsRepository } from "../../../repositories/ContactsRepository";
 import { goBackButton } from "../../../ui/goBackButton";
 import { handleError } from "../../../utils/errorHandler";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
@@ -8,7 +8,7 @@ import type { GetContactByPhoneHandler } from "./types";
 
 const spinnerLoader = new SpinnerLoader();
 const jsonFileManager = new JsonFileManager();
-const orm = new ORM(jsonFileManager);
+const repository = new ContactsRepository(jsonFileManager);
 
 export const getContactByPhoneHandler: GetContactByPhoneHandler = async ({
 	phone,
@@ -17,7 +17,7 @@ export const getContactByPhoneHandler: GetContactByPhoneHandler = async ({
 	await wait();
 
 	try {
-		const response = orm.getByPhoneNumber(phone);
+		const response = repository.getByPhoneNumber(phone);
 		if (!response || !response.length) {
 			spinnerLoader.error("No contact found");
 			return;

@@ -1,11 +1,11 @@
 import { JsonFileManager } from "../../../../lib/JsonFileManager";
-import { ORM } from "../../../../lib/ORM";
+import { ContactsRepository } from "../../../../repositories/ContactsRepository";
 
 const jsonFileManager = new JsonFileManager();
-const orm = new ORM(jsonFileManager);
+const repository = new ContactsRepository(jsonFileManager);
 
 export const searchUsernameHandler = async (username: string) => {
-	const response = await orm.searchUsernames(username);
+	const response = await repository.searchUsernames(username);
 
 	return response.map((item) => {
 		return {

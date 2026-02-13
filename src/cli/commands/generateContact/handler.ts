@@ -1,5 +1,5 @@
 import { JsonFileManager } from "../../../lib/JsonFileManager";
-import { ORM } from "../../../lib/ORM";
+import { ContactsRepository } from "../../../repositories/ContactsRepository";
 import { goBackButton } from "../../../ui/goBackButton";
 import { handleError } from "../../../utils/errorHandler";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
@@ -7,7 +7,7 @@ import type { GenerateContractHandler } from "./types";
 
 const spinnerLoader = new SpinnerLoader();
 const jsonFileManager = new JsonFileManager();
-const orm = new ORM(jsonFileManager);
+const repository = new ContactsRepository(jsonFileManager);
 
 export const generateContractHandler: GenerateContractHandler = async ({
 	username,
@@ -15,7 +15,7 @@ export const generateContractHandler: GenerateContractHandler = async ({
 }) => {
 	try {
 		spinnerLoader.show();
-		orm.addContract(username, phone);
+		repository.addContract(username, phone);
 		spinnerLoader.success("Created successfully");
 	} catch (err) {
 		handleError(err, spinnerLoader);

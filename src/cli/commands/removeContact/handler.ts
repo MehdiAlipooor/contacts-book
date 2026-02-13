@@ -1,5 +1,5 @@
 import { JsonFileManager } from "../../../lib/JsonFileManager";
-import { ORM } from "../../../lib/ORM";
+import { ContactsRepository } from "../../../repositories/ContactsRepository";
 import { goBackButton } from "../../../ui/goBackButton";
 import { handleError } from "../../../utils/errorHandler";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
@@ -8,7 +8,7 @@ import type { RemoveContactHandler } from "./types";
 
 const spinnerLoader = new SpinnerLoader();
 const jsonFileManager = new JsonFileManager();
-const orm = new ORM(jsonFileManager);
+const repository = new ContactsRepository(jsonFileManager);
 
 export const removeContactHandler: RemoveContactHandler = async ({
 	username,
@@ -17,7 +17,7 @@ export const removeContactHandler: RemoveContactHandler = async ({
 	await wait();
 
 	try {
-		orm.removeByUsername(username);
+		repository.removeByUsername(username);
 		spinnerLoader.success("Contact removed");
 	} catch (err) {
 		handleError(err, spinnerLoader);

@@ -8,7 +8,7 @@
 	"scripts": {
 		"build": "tsc",
 		"cli": "ts-node ./src/app.ts",
-		"format": "npx @biomejs/biome check --write"
+		"format": "npx biome check --write"
 	},
 	"dependencies": {
 		"@inquirer/prompts": "^8.2.0",
