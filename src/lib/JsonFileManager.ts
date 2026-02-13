@@ -46,6 +46,7 @@ export class JsonFileManager {
    * @description This method update all content of file, not just a record
    */
   private async saveToFile(input: JsonData) {
+    console.log(input);
     await insertToFile(this.filePath, input, (error) => {
       if (error) {
         throw new SavingFileException("an error happened while saving file");
@@ -76,23 +77,28 @@ export class JsonFileManager {
       .map(([key, value]) => ({ key, value }));
   }
 
-  removeRow(key: string) {
+  async removeRow(key: string): Promise<void> {
+    await this.waitForLoad();
+
     if (!this.cache[key]) {
       throw new NoItemException("no item exists");
     }
 
-    const filteredCache = this.cache;
-    delete filteredCache[key];
+    const { [key]: _, ...newCache } = this.cache;
 
-    this.saveToFile(filteredCache);
+    await this.saveToFile(newCache);
   }
 
-  addRow(key: string, value: string) {
+  async addRow(key: string, value: string): Promise<void> {
+    await this.waitForLoad();
+
     if (this.cache[key]) {
       throw new DuplicatedException("item already exists");
     }
+
     const newCache = { ...this.cache, [key]: value };
-    this.saveToFile(newCache);
+
+    await this.saveToFile(newCache);
   }
 
   async waitForLoad(): Promise<void> {

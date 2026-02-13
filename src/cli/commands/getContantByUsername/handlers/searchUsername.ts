@@ -1,12 +1,7 @@
-import { JsonFileManager } from "../../../../lib/JsonFileManager";
-import { ContactsRepository } from "../../../../repositories/ContactsRepository";
-import { getContactStoragePath } from "../../../../utils/getContactStoragePath";
-
-const jsonFileManager = new JsonFileManager(getContactStoragePath());
-const repository = new ContactsRepository(jsonFileManager);
+import { contactsRepository } from "../../../container";
 
 export const searchUsernameHandler = async (username: string) => {
-  const response = await repository.search(username);
+  const response = await contactsRepository.search(username);
 
   return response.map((item) => {
     return {

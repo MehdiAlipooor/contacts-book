@@ -1,15 +1,11 @@
-import { JsonFileManager } from "../../../../lib/JsonFileManager";
-import { ContactsRepository } from "../../../../repositories/ContactsRepository";
 import { goBackButton } from "../../../../ui/goBackButton";
 import { handleError } from "../../../../utils/errorHandler";
-import { getContactStoragePath } from "../../../../utils/getContactStoragePath";
 import { SpinnerLoader } from "../../../../utils/spinnerLoader";
 import { wait } from "../../../../utils/wait";
+import { contactsRepository } from "../../../container";
 import type { GetContactByUsernameHandler } from "../types";
 
 const spinnerLoader = new SpinnerLoader();
-const jsonFileManager = new JsonFileManager(getContactStoragePath());
-const repository = new ContactsRepository(jsonFileManager);
 
 export const getContactByUsernameHandler: GetContactByUsernameHandler = async ({
   username,
@@ -19,7 +15,7 @@ export const getContactByUsernameHandler: GetContactByUsernameHandler = async ({
   await wait();
 
   try {
-    const response = await repository.findByUsername(username);
+    const response = await contactsRepository.findByUsername(username);
     if (!response) {
       spinnerLoader.error("No contact found");
       return;

@@ -1,15 +1,11 @@
 import { DuplicatedException } from "../../../lib/Exceptions";
-import { JsonFileManager } from "../../../lib/JsonFileManager";
-import { ContactsRepository } from "../../../repositories/ContactsRepository";
 import { goBackButton } from "../../../ui/goBackButton";
 import { handleError } from "../../../utils/errorHandler";
-import { getContactStoragePath } from "../../../utils/getContactStoragePath";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
+import { contactsRepository } from "../../container";
 import type { GenerateContractHandler } from "./types";
 
 const spinnerLoader = new SpinnerLoader();
-const jsonFileManager = new JsonFileManager(getContactStoragePath());
-const repository = new ContactsRepository(jsonFileManager);
 
 export const generateContractHandler: GenerateContractHandler = async ({
   username,
@@ -17,14 +13,14 @@ export const generateContractHandler: GenerateContractHandler = async ({
 }) => {
   try {
     spinnerLoader.show();
-    const existsByPhone = await repository.findByPhone(phone);
-    const existsByUsername = await repository.findByUsername(username);
+    const existsByPhone = await contactsRepository.findByPhone(phone);
+    const existsByUsername = await contactsRepository.findByUsername(username);
 
     if (existsByPhone?.length || existsByUsername) {
       throw new DuplicatedException("Item exists");
     }
 
-    repository.save({ username, phone });
+    contactsRepository.save({ username, phone });
     spinnerLoader.success("Created successfully");
   } catch (err) {
     handleError(err, spinnerLoader);
