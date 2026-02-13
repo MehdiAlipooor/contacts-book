@@ -9,11 +9,11 @@ export const createCliModule = async (
 
   for (const prompt of config.prompts) {
     try {
-      const response = await executePrompt(prompt);
-      const { key, value } = response as {
+      const { key, value } = (await executePrompt(prompt)) as {
         key: string;
         value: string;
       };
+
       answers[key] = value;
     } catch (error) {
       handleError(error);
