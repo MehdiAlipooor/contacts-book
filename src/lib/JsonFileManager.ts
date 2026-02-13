@@ -2,7 +2,6 @@ import type { JsonData } from "../types";
 import { convertBufferToJson } from "../utils/convertBufferToJson";
 import { handleError } from "../utils/errorHandler";
 import { getFileAsync } from "../utils/getFile";
-import { getFilePathFromRoot } from "../utils/getFilePathFromRoot";
 import { insertToFile } from "../utils/insertToFile";
 import {
   DuplicatedException,
@@ -10,13 +9,11 @@ import {
   SavingFileException,
 } from "./Exceptions";
 
-const filePath = getFilePathFromRoot("./../storage/contacts.json");
-
 export class JsonFileManager {
   cache: JsonData = {};
   private loadPromise: Promise<void> | null = null;
 
-  constructor() {
+  constructor(private filePath: string) {
     this.preload();
   }
 
@@ -26,7 +23,7 @@ export class JsonFileManager {
 
   private async loadFile(): Promise<void> {
     try {
-      const data = await getFileAsync(filePath);
+      const data = await getFileAsync(this.filePath);
       const list = await convertBufferToJson(data);
       this.cache = list;
     } catch (error) {
@@ -49,7 +46,7 @@ export class JsonFileManager {
    * @description This method update all content of file, not just a record
    */
   private async saveToFile(input: JsonData) {
-    await insertToFile(filePath, input, (error) => {
+    await insertToFile(this.filePath, input, (error) => {
       if (error) {
         throw new SavingFileException("an error happened while saving file");
       }

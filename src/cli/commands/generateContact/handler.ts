@@ -3,11 +3,12 @@ import { JsonFileManager } from "../../../lib/JsonFileManager";
 import { ContactsRepository } from "../../../repositories/ContactsRepository";
 import { goBackButton } from "../../../ui/goBackButton";
 import { handleError } from "../../../utils/errorHandler";
+import { getContactStoragePath } from "../../../utils/getContactStoragePath";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
 import type { GenerateContractHandler } from "./types";
 
 const spinnerLoader = new SpinnerLoader();
-const jsonFileManager = new JsonFileManager();
+const jsonFileManager = new JsonFileManager(getContactStoragePath());
 const repository = new ContactsRepository(jsonFileManager);
 
 export const generateContractHandler: GenerateContractHandler = async ({
