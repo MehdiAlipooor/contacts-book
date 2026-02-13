@@ -11,24 +11,24 @@ const jsonFileManager = new JsonFileManager();
 const repository = new ContactsRepository(jsonFileManager);
 
 export const getContactByUsernameHandler: GetContactByUsernameHandler = async ({
-	username,
+  username,
 }) => {
-	spinnerLoader.show();
+  spinnerLoader.show();
 
-	await wait();
+  await wait();
 
-	try {
-		const response = repository.getByUsername(username);
-		if (!response) {
-			spinnerLoader.error("No contact found");
-			return;
-		}
+  try {
+    const response = await repository.findByUsername(username);
+    if (!response) {
+      spinnerLoader.error("No contact found");
+      return;
+    }
 
-		spinnerLoader.success(response);
-	} catch (err) {
-		handleError(err, spinnerLoader);
-	} finally {
-		spinnerLoader.kill();
-		goBackButton();
-	}
+    spinnerLoader.success(`${response.username}: ${response.phone}`);
+  } catch (err) {
+    handleError(err, spinnerLoader);
+  } finally {
+    spinnerLoader.kill();
+    goBackButton();
+  }
 };

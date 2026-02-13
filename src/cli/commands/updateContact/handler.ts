@@ -18,7 +18,7 @@ export const updateContacHandler: RemoveContactHandler = async ({
   await wait();
 
   try {
-    await repository.updatePhone(username, phone);
+    await repository.save({ username, phone });
     spinnerLoader.success("Contact updated");
   } catch (err) {
     handleError(err, spinnerLoader);

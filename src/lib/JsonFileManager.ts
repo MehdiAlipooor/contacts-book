@@ -13,7 +13,6 @@ import {
 const filePath = getFilePathFromRoot("./../storage/contacts.json");
 
 export class JsonFileManager {
-  private file: JsonData = {};
   cache: JsonData = {};
   private loadPromise: Promise<void> | null = null;
 
@@ -29,11 +28,9 @@ export class JsonFileManager {
     try {
       const data = await getFileAsync(filePath);
       const list = await convertBufferToJson(data);
-      this.file = list;
       this.cache = list;
     } catch (error) {
       handleError(error);
-      this.file = {};
       this.cache = {};
     }
   }
@@ -43,9 +40,9 @@ export class JsonFileManager {
   }
 
   getItemByValue(searchValue: string) {
-    return Object.keys(this.cache).filter(
-      (key) => this.cache[key] === searchValue,
-    );
+    return Object.entries(this.cache)
+      .filter(([_, value]) => value.includes(searchValue))
+      .map(([key, value]) => ({ key, value }));
   }
 
   /**
@@ -109,6 +106,6 @@ export class JsonFileManager {
 
   async getAllRecords(): Promise<JsonData> {
     await this.waitForLoad();
-    return this.file;
+    return this.cache;
   }
 }

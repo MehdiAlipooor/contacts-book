@@ -1,3 +1,4 @@
+import { DuplicatedException } from "../../../lib/Exceptions";
 import { JsonFileManager } from "../../../lib/JsonFileManager";
 import { ContactsRepository } from "../../../repositories/ContactsRepository";
 import { goBackButton } from "../../../ui/goBackButton";
@@ -10,16 +11,23 @@ const jsonFileManager = new JsonFileManager();
 const repository = new ContactsRepository(jsonFileManager);
 
 export const generateContractHandler: GenerateContractHandler = async ({
-	username,
-	phone,
+  username,
+  phone,
 }) => {
-	try {
-		spinnerLoader.show();
-		repository.addContract(username, phone);
-		spinnerLoader.success("Created successfully");
-	} catch (err) {
-		handleError(err, spinnerLoader);
-	} finally {
-		goBackButton();
-	}
+  try {
+    spinnerLoader.show();
+    const existsByPhone = await repository.findByPhone(phone);
+    const existsByUsername = await repository.findByUsername(username);
+
+    if (existsByPhone?.length || existsByUsername) {
+      throw new DuplicatedException("Item exists");
+    }
+
+    repository.save({ username, phone });
+    spinnerLoader.success("Created successfully");
+  } catch (err) {
+    handleError(err, spinnerLoader);
+  } finally {
+    goBackButton();
+  }
 };

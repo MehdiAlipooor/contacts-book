@@ -10,15 +10,15 @@ const jsonFileManager = new JsonFileManager();
 const repository = new ContactsRepository(jsonFileManager);
 
 export async function getContractListHandler() {
-	spinnerLoader.show();
-	await wait();
-	try {
-		const list = await repository.getList();
-		console.table(list);
-		spinnerLoader.success("Done");
-	} catch (err) {
-		handleError(err, spinnerLoader);
-	} finally {
-		goBackButton();
-	}
+  spinnerLoader.show();
+  await wait();
+  try {
+    const list = await repository.findAll();
+    console.table(list);
+    spinnerLoader.success("Done");
+  } catch (err) {
+    handleError(err, spinnerLoader);
+  } finally {
+    goBackButton();
+  }
 }

@@ -1,33 +1,75 @@
 import type { JsonFileManager } from "../lib/JsonFileManager";
+import type { Contact } from "../types";
 
-export class ContactsRepository {
-  constructor(private jsonFileManager: JsonFileManager) {}
+interface ContactRepository {
+  findAll(): Promise<Contact[]>;
+  findByUsername(username: string): Promise<Contact | null>;
+  findByPhone(phone: string): Promise<Contact[] | null>;
+  search(term: string): Promise<Contact[]>;
+  save(contact: Contact): Promise<void>;
+  delete(username: string): Promise<void>;
+}
 
-  getList() {
-    return this.jsonFileManager.getAllRecords();
+export class ContactsRepository implements ContactRepository {
+  constructor(private readonly jsonFileManager: JsonFileManager) {}
+
+  async findAll(): Promise<Contact[]> {
+    const records = await this.jsonFileManager.getAllRecords();
+
+    return Object.entries(records).map(([username, phone]) => ({
+      username,
+      phone,
+    }));
   }
 
-  getByUsername(userName: string) {
-    return this.jsonFileManager.getItemByKey(userName);
+  async findByUsername(username: string): Promise<Contact | null> {
+    const phone = this.jsonFileManager.getItemByKey(username);
+
+    if (!phone) return null;
+
+    return { username, phone };
   }
 
-  searchUsernames(userName: string) {
-    return this.jsonFileManager.searchKeys(userName);
+  async findByPhone(phone: string): Promise<Contact[] | null> {
+    const usernames = this.jsonFileManager.getItemByValue(phone);
+    if (!usernames) return null;
+
+    return usernames.map((item) => {
+      return {
+        username: item.key,
+        phone: item.value,
+      };
+    });
   }
 
-  getByPhoneNumber(phone: string) {
-    return this.jsonFileManager.getItemByValue(phone);
+  async search(term: string): Promise<Contact[]> {
+    const matches = this.jsonFileManager.searchKeys(term);
+
+    return matches.map(({ key, value }) => ({
+      username: key,
+      phone: value,
+    }));
   }
 
-  async updatePhone(username: string, phone: string) {
-    return await this.jsonFileManager.updateRow(username, phone);
+  private async update(contact: Contact) {
+    await this.jsonFileManager.updateRow(contact.username, contact.phone);
   }
 
-  async removeByUsername(userName: string) {
-    this.jsonFileManager.removeRow(userName);
+  private async create(contact: Contact) {
+    await this.jsonFileManager.addRow(contact.username, contact.phone);
   }
 
-  addContract(key: string, value: string) {
-    this.jsonFileManager.addRow(key, value);
+  async save(contact: Contact): Promise<void> {
+    const existing = this.jsonFileManager.getItemByKey(contact.username);
+
+    if (existing) {
+      this.update(contact);
+    } else {
+      this.create(contact);
+    }
+  }
+
+  async delete(username: string): Promise<void> {
+    await this.jsonFileManager.removeRow(username);
   }
 }

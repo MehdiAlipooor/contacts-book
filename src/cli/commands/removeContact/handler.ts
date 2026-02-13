@@ -11,17 +11,17 @@ const jsonFileManager = new JsonFileManager();
 const repository = new ContactsRepository(jsonFileManager);
 
 export const removeContactHandler: RemoveContactHandler = async ({
-	username,
+  username,
 }) => {
-	spinnerLoader.show();
-	await wait();
+  spinnerLoader.show();
+  await wait();
 
-	try {
-		repository.removeByUsername(username);
-		spinnerLoader.success("Contact removed");
-	} catch (err) {
-		handleError(err, spinnerLoader);
-	} finally {
-		goBackButton();
-	}
+  try {
+    repository.delete(username);
+    spinnerLoader.success("Contact removed");
+  } catch (err) {
+    handleError(err, spinnerLoader);
+  } finally {
+    goBackButton();
+  }
 };
