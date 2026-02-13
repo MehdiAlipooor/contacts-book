@@ -8,24 +8,24 @@ import type { GetContactByUsernameHandler } from "../types";
 const spinnerLoader = new SpinnerLoader();
 
 export const getContactByUsernameHandler: GetContactByUsernameHandler = async ({
-  username,
+	username,
 }) => {
-  spinnerLoader.show();
+	spinnerLoader.show();
 
-  await wait();
+	await wait();
 
-  try {
-    const response = await contactsRepository.findByUsername(username);
-    if (!response) {
-      spinnerLoader.error("No contact found");
-      return;
-    }
+	try {
+		const response = await contactsRepository.findByUsername(username);
+		if (!response) {
+			spinnerLoader.error("No contact found");
+			return;
+		}
 
-    spinnerLoader.success(`${response.username}: ${response.phone}`);
-  } catch (err) {
-    handleError(err, spinnerLoader);
-  } finally {
-    spinnerLoader.kill();
-    goBackButton();
-  }
+		spinnerLoader.success(`${response.username}: ${response.phone}`);
+	} catch (err) {
+		handleError(err, spinnerLoader);
+	} finally {
+		spinnerLoader.kill();
+		goBackButton();
+	}
 };

@@ -7,15 +7,15 @@ import { contactsRepository } from "../../container";
 const spinnerLoader = new SpinnerLoader();
 
 export async function getContractListHandler() {
-  spinnerLoader.show();
-  await wait();
-  try {
-    const list = await contactsRepository.findAll();
-    console.table(list);
-    spinnerLoader.success("Done");
-  } catch (err) {
-    handleError(err, spinnerLoader);
-  } finally {
-    goBackButton();
-  }
+	spinnerLoader.show();
+	await wait();
+	try {
+		const list = await contactsRepository.findAll();
+		console.table(list);
+		spinnerLoader.success("Done");
+	} catch (err) {
+		handleError(err, spinnerLoader);
+	} finally {
+		goBackButton();
+	}
 }
