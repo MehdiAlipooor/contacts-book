@@ -1,7 +1,7 @@
 export async function wait(timeout = 1000) {
-  await new Promise((resolve) =>
-    setTimeout(() => {
-      resolve(true);
-    }, timeout),
-  );
+	await new Promise((resolve) =>
+		setTimeout(() => {
+			resolve(true);
+		}, timeout),
+	);
 }

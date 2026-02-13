@@ -1,3 +1,3 @@
 export function convertBufferToJson(buffer: Buffer) {
-  return JSON.parse(buffer.toString());
+	return JSON.parse(buffer.toString());
 }

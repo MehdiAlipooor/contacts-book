@@ -1,6 +1,6 @@
-import { CommandConstant } from '../../../types';
+import type { CommandConstant } from "../../../types";
 
 export const updateContactConstants: CommandConstant = {
-  command: 'update',
-  description: 'Update contact',
+	command: "update",
+	description: "Update contact",
 };

@@ -1,46 +1,48 @@
-import { handleError } from '../../utils/errorHandler';
-import { ExitPromptException } from '../Exceptions';
-import { commands } from './commands';
-import { PromptDefinition, CliModuleConfig } from './types';
+import { handleError } from "../../utils/errorHandler";
+import { ExitPromptException } from "../Exceptions";
+import { commands } from "./commands";
+import type { CliModuleConfig, PromptDefinition } from "./types";
 
 async function executePrompt(
-  prompt: PromptDefinition,
-): Promise<{ key: string; value: any }> | never {
-  const { type, key } = prompt;
+	prompt: PromptDefinition,
+): Promise<{ key: string; value: string }> | never {
+	const { type, key } = prompt;
 
-  if (type === 'input') {
-    const { message, validator, theme } = prompt;
-    const value = await commands.input({ message, validator, theme });
-    return { key, value };
-  }
+	if (type === "input") {
+		const { message, validator, theme } = prompt;
+		const value = await commands.input({ message, validator, theme });
+		return { key, value };
+	}
 
-  if (type === 'select') {
-    const { message, choices } = prompt;
-    const value = await commands.select({ message, choices });
-    return { key, value };
-  }
+	if (type === "select") {
+		const { message, choices } = prompt;
+		const value = await commands.select({ message, choices });
+		return { key, value };
+	}
 
-  if (type === 'search') {
-    const { message, onSearch } = prompt;
-    const value = await commands.search({ message, onSearch });
-    return { key, value };
-  }
+	if (type === "search") {
+		const { message, onSearch } = prompt;
+		const value = await commands.search({ message, onSearch });
+		return { key, value };
+	}
 
-  throw new ExitPromptException(`Unknown prompt type: ${(prompt as any).type}`);
+	throw new ExitPromptException(`Unknown prompt type`);
 }
 
-export const createCliModule = async (config: CliModuleConfig): Promise<void> => {
-  const answers: Record<string, any> = {};
+export const createCliModule = async (
+	config: CliModuleConfig,
+): Promise<void> => {
+	const answers: Record<string, string> = {};
 
-  for (const prompt of config.prompts) {
-    try {
-      const { key, value } = await executePrompt(prompt);
-      answers[key] = value;
-    } catch (error) {
-      handleError(error);
-      throw error;
-    }
-  }
+	for (const prompt of config.prompts) {
+		try {
+			const { key, value } = await executePrompt(prompt);
+			answers[key] = value;
+		} catch (error) {
+			handleError(error);
+			throw error;
+		}
+	}
 
-  await config.action(answers);
+	await config.action(answers);
 };

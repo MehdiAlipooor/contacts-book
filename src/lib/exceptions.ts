@@ -1,51 +1,51 @@
 export abstract class AppError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = this.constructor.name;
+	constructor(message: string) {
+		super(message);
+		this.name = this.constructor.name;
 
-    /**
-     * @description For better stack tracing
-     */
-    Error.captureStackTrace(this, this.constructor);
-  }
+		/**
+		 * @description For better stack tracing
+		 */
+		Error.captureStackTrace(this, this.constructor);
+	}
 
-  toJson() {
-    return {
-      name: this.name,
-      message: this.message,
-      stack: this.stack,
-    };
-  }
+	toJson() {
+		return {
+			name: this.name,
+			message: this.message,
+			stack: this.stack,
+		};
+	}
 
-  getMessage() {
-    return this.message;
-  }
+	getMessage() {
+		return this.message;
+	}
 }
 
 export class DuplicatedException extends AppError {
-  constructor(message: string) {
-    super(message);
-    this.name = 'DuplicatedException';
-  }
+	constructor(message: string) {
+		super(message);
+		this.name = "DuplicatedException";
+	}
 }
 
 export class SavingFileException extends AppError {
-  constructor(message: string) {
-    super(message);
-    this.name = 'SavingFileException';
-  }
+	constructor(message: string) {
+		super(message);
+		this.name = "SavingFileException";
+	}
 }
 
 export class NoItemException extends AppError {
-  constructor(message: string) {
-    super(message);
-    this.name = 'NoItemExeption';
-  }
+	constructor(message: string) {
+		super(message);
+		this.name = "NoItemExeption";
+	}
 }
 
 export class ExitPromptException extends AppError {
-  constructor(message: string) {
-    super(message);
-    this.name = 'ExitPromptException';
-  }
+	constructor(message: string) {
+		super(message);
+		this.name = "ExitPromptException";
+	}
 }

@@ -1,20 +1,20 @@
-import { COMMANDS } from './constants';
+import type { COMMANDS } from "./constants";
 
 export interface JsonData {
-  [key: string]: string;
+	[key: string]: string;
 }
 
 export type Schema = {
-  type: string;
-  name: string;
-  message: string;
-  validate?: (input: string) => string | boolean;
+	type: string;
+	name: string;
+	message: string;
+	validate?: (input: string) => string | boolean;
 };
 
 export interface CommandConstant {
-  command: string;
-  description: string;
-  [key: string]: string;
+	command: string;
+	description: string;
+	[key: string]: string;
 }
 
 export type CliCommand = keyof typeof COMMANDS;
