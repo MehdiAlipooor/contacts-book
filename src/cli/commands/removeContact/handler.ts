@@ -3,9 +3,14 @@ import { handleError } from "../../../utils/errorHandler";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
 import { wait } from "../../../utils/wait";
 import { contactsRepository } from "../../container";
-import type { RemoveContactHandler } from "./types";
 
 const spinnerLoader = new SpinnerLoader();
+
+export type RemoveContactHandler = ({
+	username,
+}: {
+	username: string;
+}) => Promise<void>;
 
 export const removeContactHandler: RemoveContactHandler = async ({
 	username,

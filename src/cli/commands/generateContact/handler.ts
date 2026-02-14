@@ -3,7 +3,14 @@ import { goBackButton } from "../../../ui/goBackButton";
 import { handleError } from "../../../utils/errorHandler";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
 import { contactsRepository } from "../../container";
-import type { GenerateContractHandler } from "./types";
+
+export type GenerateContractHandler = ({
+	username,
+	phone,
+}: {
+	username: string;
+	phone: string;
+}) => Promise<void>;
 
 const spinnerLoader = new SpinnerLoader();
 

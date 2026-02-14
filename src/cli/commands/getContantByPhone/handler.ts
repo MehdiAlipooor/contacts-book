@@ -3,7 +3,12 @@ import { handleError } from "../../../utils/errorHandler";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
 import { wait } from "../../../utils/wait";
 import { contactsRepository } from "../../container";
-import type { GetContactByPhoneHandler } from "./types";
+
+export type GetContactByPhoneHandler = ({
+	phone,
+}: {
+	phone: string;
+}) => Promise<void>;
 
 const spinnerLoader = new SpinnerLoader();
 

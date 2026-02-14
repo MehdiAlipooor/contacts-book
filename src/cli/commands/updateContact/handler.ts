@@ -3,7 +3,14 @@ import { handleError } from "../../../utils/errorHandler";
 import { SpinnerLoader } from "../../../utils/spinnerLoader";
 import { wait } from "../../../utils/wait";
 import { contactsRepository } from "../../container";
-import type { RemoveContactHandler } from "./types";
+
+export type RemoveContactHandler = ({
+	username,
+	phone,
+}: {
+	username: string;
+	phone: string;
+}) => Promise<void>;
 
 const spinnerLoader = new SpinnerLoader();
 
