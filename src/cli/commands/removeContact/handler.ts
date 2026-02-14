@@ -7,23 +7,23 @@ import { wait } from "@/utils/wait";
 const spinnerLoader = new SpinnerLoader();
 
 export type RemoveContactHandler = ({
-  username,
+	username,
 }: {
-  username: string;
+	username: string;
 }) => Promise<void>;
 
 export const removeContactHandler: RemoveContactHandler = async ({
-  username,
+	username,
 }) => {
-  spinnerLoader.show();
-  await wait();
+	spinnerLoader.show();
+	await wait();
 
-  try {
-    contactsRepository.delete(username);
-    spinnerLoader.success("Contact removed");
-  } catch (err) {
-    handleError(err, spinnerLoader);
-  } finally {
-    goBackButton();
-  }
+	try {
+		contactsRepository.delete(username);
+		spinnerLoader.success("Contact removed");
+	} catch (err) {
+		handleError(err, spinnerLoader);
+	} finally {
+		goBackButton();
+	}
 };

@@ -3,13 +3,13 @@ import { removeContactHandler } from "./handler";
 import { removeContactSchema } from "./schema";
 
 async function action(response: Record<string, string>) {
-  await removeContactHandler({ username: response.username });
+	await removeContactHandler({ username: response.username });
 }
 
 const prompts = removeContactSchema();
 
 export const removeContact = () =>
-  createCliModule({
-    prompts,
-    action,
-  });
+	createCliModule({
+		prompts,
+		action,
+	});

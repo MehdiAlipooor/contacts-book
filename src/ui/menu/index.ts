@@ -6,11 +6,11 @@ import { menuSchama } from "./schema";
 const prompts = menuSchama();
 
 async function action(response: Record<string, string>) {
-  runCommand(response.command as CliCommand);
+	runCommand(response.command as CliCommand);
 }
 
 export const menu = () =>
-  createCliModule({
-    prompts,
-    action,
-  });
+	createCliModule({
+		prompts,
+		action,
+	});

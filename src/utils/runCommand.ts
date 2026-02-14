@@ -3,5 +3,5 @@ import type { CliCommand } from "@/types";
 import { menu } from "@/ui/menu";
 
 export function runCommand(command: CliCommand) {
-  return COMMANDS[command]?.() ?? menu();
+	return COMMANDS[command]?.() ?? menu();
 }

@@ -5,29 +5,29 @@ import { SpinnerLoader } from "@/utils/spinnerLoader";
 import { wait } from "@/utils/wait";
 
 export type RemoveContactHandler = ({
-  username,
-  phone,
+	username,
+	phone,
 }: {
-  username: string;
-  phone: string;
+	username: string;
+	phone: string;
 }) => Promise<void>;
 
 const spinnerLoader = new SpinnerLoader();
 
 export const updateContacHandler: RemoveContactHandler = async ({
-  username,
-  phone,
+	username,
+	phone,
 }) => {
-  spinnerLoader.show();
-  await wait();
+	spinnerLoader.show();
+	await wait();
 
-  try {
-    await contactsRepository.save({ username, phone });
-    spinnerLoader.success("Contact updated");
-  } catch (err) {
-    handleError(err, spinnerLoader);
-    spinnerLoader.error("Contact update failed");
-  } finally {
-    goBackButton();
-  }
+	try {
+		await contactsRepository.save({ username, phone });
+		spinnerLoader.success("Contact updated");
+	} catch (err) {
+		handleError(err, spinnerLoader);
+		spinnerLoader.error("Contact update failed");
+	} finally {
+		goBackButton();
+	}
 };

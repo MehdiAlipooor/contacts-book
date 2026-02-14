@@ -7,18 +7,18 @@ import { wait } from "@/utils/wait";
 const spinnerLoader = new SpinnerLoader();
 
 export async function getContractListHandler() {
-  spinnerLoader.show();
-  await wait();
+	spinnerLoader.show();
+	await wait();
 
-  try {
-    const list = await contactsRepository.findAll();
-    console.log("");
-    console.log("");
-    console.table(list);
-    spinnerLoader.success("Done");
-  } catch (err) {
-    handleError(err, spinnerLoader);
-  } finally {
-    goBackButton();
-  }
+	try {
+		const list = await contactsRepository.findAll();
+		console.log("");
+		console.log("");
+		console.table(list);
+		spinnerLoader.success("Done");
+	} catch (err) {
+		handleError(err, spinnerLoader);
+	} finally {
+		goBackButton();
+	}
 }
