@@ -19,7 +19,7 @@ export const updateContactSchema: () => PromptDefinition[] = () => [
 		message: "New phone:",
 		validator: (value: string) => {
 			const validator = new Validator(value);
-			const error = validator.isValidMobile().getError();
+			const error = validator.isMobile().getError();
 
 			return error ?? true;
 		},

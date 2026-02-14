@@ -1,10 +1,7 @@
 export class Validator {
-	private input = "";
 	private errors: string[] = [];
 
-	constructor(input: string) {
-		this.input = input;
-	}
+	constructor(private input: string) {}
 
 	isEmpty() {
 		if (!this.input) {
@@ -14,7 +11,7 @@ export class Validator {
 		return this;
 	}
 
-	isValidUsername() {
+	isUsername() {
 		if (!/^[a-zA-Z0-9_]+$/.test(this.input)) {
 			this.errors.push("Username is not valid");
 		}
@@ -22,7 +19,7 @@ export class Validator {
 		return this;
 	}
 
-	isValidMobile() {
+	isMobile() {
 		if (!/^(?:\+98|0)?9\d{9}$/.test(this.input)) {
 			this.errors.push("Phone is not valid");
 		}

@@ -8,7 +8,7 @@ export const getContantByPhoneSchema: () => PromptDefinition[] = () => [
 		message: "Phone:",
 		validator: (value: string) => {
 			const validator = new Validator(value);
-			const error = validator.isEmpty().isValidMobile().getError();
+			const error = validator.isEmpty().isMobile().getError();
 
 			return error ?? true;
 		},

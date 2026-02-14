@@ -8,7 +8,7 @@ import type {
 
 export const commands = {
 	input: async (props: InputCommandProps) => {
-		return await input(props);
+		return await input({ ...props, validate: props?.validator });
 	},
 	select: async (props: SelectCommandProps) => {
 		return await select(props);
