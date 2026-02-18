@@ -1,16 +1,19 @@
-import type { PromptDefinition } from "@/lib/createCliModule/types";
-import { Validator } from "@/utils/validator";
+import type {
+  PromptDefinition,
+  SearchResponse,
+} from "@/lib/createCliModule/types";
 
-export const removeContactSchema: () => PromptDefinition[] = () => [
-	{
-		type: "input",
-		key: "username",
-		message: "Username:",
-		validator: (value: string) => {
-			const validator = new Validator(value);
-			const error = validator.isEmpty().getError();
+type RemoveContactSchema = ({
+  onSearch,
+}: {
+  onSearch: (input: string) => Promise<SearchResponse[]>;
+}) => PromptDefinition[];
 
-			return error ?? true;
-		},
-	},
+export const removeContactSchema: RemoveContactSchema = ({ onSearch }) => [
+  {
+    type: "search",
+    key: "username",
+    message: "Username:",
+    onSearch,
+  },
 ];

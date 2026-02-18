@@ -8,7 +8,7 @@ export interface StorageDriver<T extends BaseEntity> {
 
   findBy<K extends keyof T>(key: K, value: T[K]): Promise<T | null>;
 
-  findMany<K extends keyof T>(key: K, value: T[K]): Promise<T[]>;
+  findMany<K extends keyof T>(key: K, value: string): Promise<T[]>;
 
   create(data: Omit<T, "id" | "createdAt" | "updatedAt">): Promise<T>;
 
@@ -57,9 +57,9 @@ export class JsonDriver<T extends BaseEntity> implements StorageDriver<T> {
     return data.find((item) => item[key] === value) ?? null;
   }
 
-  async findMany<K extends keyof T>(key: K, value: T[K]): Promise<T[]> {
+  async findMany<K extends keyof T>(key: K, value: string): Promise<T[]> {
     const data = await this.read();
-    return data.filter((item) => item[key] === value);
+    return data.filter((item) => (item[key] as string).includes(value));
   }
 
   async create(payload: Omit<T, "id" | "createdAt" | "updatedAt">): Promise<T> {

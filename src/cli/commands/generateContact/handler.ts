@@ -27,7 +27,7 @@ export const generateContractHandler: GenerateContractHandler = async ({
       throw new DuplicatedException("Item exists");
     }
 
-    contactsRepository.save({ username, phone });
+    contactsRepository.create({ username, phone });
     spinnerLoader.success("Created successfully");
   } catch (err) {
     handleError(err, spinnerLoader);

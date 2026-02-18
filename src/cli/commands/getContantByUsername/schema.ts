@@ -1,21 +1,21 @@
 import type {
-	PromptDefinition,
-	SearchResponse,
+  PromptDefinition,
+  SearchResponse,
 } from "@/lib/createCliModule/types";
 
 type Props = {
-	onSearch: (input: string) => Promise<SearchResponse[]>;
+  onSearch: (input: string) => Promise<SearchResponse[]>;
 };
 
 export const getContactByUsernameSchema: ({
-	onSearch,
+  onSearch,
 }: Props) => PromptDefinition[] = ({ onSearch }) => {
-	return [
-		{
-			type: "search",
-			key: "username",
-			message: "Username:",
-			onSearch,
-		},
-	];
+  return [
+    {
+      type: "search",
+      key: "username",
+      message: "Username:",
+      onSearch,
+    },
+  ];
 };
