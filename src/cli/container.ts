@@ -1,7 +1,10 @@
-import { JsonFileManager } from "@/lib/JsonFileManager";
-import { ContactsRepository } from "@/repositories/contactsRepository";
+import { JsonDriver } from "@/lib/DbDriver";
+import {
+  type ContactEntity,
+  ContactsRepository,
+} from "@/repositories/contactsRepository";
 import { getContactStoragePath } from "@/utils/getContactStoragePath";
 
-const jsonFileManager = new JsonFileManager(getContactStoragePath());
+const jsonFileManager = new JsonDriver<ContactEntity>(getContactStoragePath());
 
 export const contactsRepository = new ContactsRepository(jsonFileManager);

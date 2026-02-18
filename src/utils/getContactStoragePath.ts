@@ -1,5 +1,5 @@
-import { getFilePathFromRoot } from "./getFilePathFromRoot";
+import { join } from "node:path";
 
 export const getContactStoragePath = () => {
-	return getFilePathFromRoot("./../storage/contacts.json");
+  return join(__dirname, "./../storage/contacts.json");
 };
