@@ -6,29 +6,29 @@ import { SpinnerLoader } from "@/utils/spinnerLoader";
 const spinnerLoader = new SpinnerLoader();
 
 export async function getContractListHandler() {
-  spinnerLoader.show();
+	spinnerLoader.show();
 
-  try {
-    const list = await contactsRepository.findAll();
+	try {
+		const list = await contactsRepository.findAll();
 
-    console.log("");
-    console.log("");
+		console.log("");
+		console.log("");
 
-    console.table(
-      (list ?? []).map((item) => {
-        return {
-          username: item.username,
-          phone: item.phone,
-        };
-      }),
-    );
+		console.table(
+			(list ?? []).map((item) => {
+				return {
+					username: item.username,
+					phone: item.phone,
+				};
+			}),
+		);
 
-    console.log("------------------------");
+		console.log("------------------------");
 
-    spinnerLoader.success("Done");
-  } catch (err) {
-    handleError(err, spinnerLoader);
-  } finally {
-    goBackButton();
-  }
+		spinnerLoader.success("Done");
+	} catch (err) {
+		handleError(err, spinnerLoader);
+	} finally {
+		goBackButton();
+	}
 }

@@ -5,33 +5,33 @@ import { handleError } from "@/utils/errorHandler";
 import { SpinnerLoader } from "@/utils/spinnerLoader";
 
 export type GenerateContractHandler = ({
-  username,
-  phone,
+	username,
+	phone,
 }: {
-  username: string;
-  phone: string;
+	username: string;
+	phone: string;
 }) => Promise<void>;
 
 const spinnerLoader = new SpinnerLoader();
 
 export const generateContractHandler: GenerateContractHandler = async ({
-  username,
-  phone,
+	username,
+	phone,
 }) => {
-  try {
-    spinnerLoader.show();
-    const existsByPhone = await contactsRepository.findByPhone(phone);
-    const existsByUsername = await contactsRepository.findByUsername(username);
+	try {
+		spinnerLoader.show();
+		const existsByPhone = await contactsRepository.findByPhone(phone);
+		const existsByUsername = await contactsRepository.findByUsername(username);
 
-    if (existsByPhone || existsByUsername) {
-      throw new DuplicatedException("Item exists");
-    }
+		if (existsByPhone || existsByUsername) {
+			throw new DuplicatedException("Item exists");
+		}
 
-    contactsRepository.create({ username, phone });
-    spinnerLoader.success("Created successfully");
-  } catch (err) {
-    handleError(err, spinnerLoader);
-  } finally {
-    goBackButton();
-  }
+		contactsRepository.create({ username, phone });
+		spinnerLoader.success("Created successfully");
+	} catch (err) {
+		handleError(err, spinnerLoader);
+	} finally {
+		goBackButton();
+	}
 };

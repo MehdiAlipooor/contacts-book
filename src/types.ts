@@ -1,20 +1,20 @@
 import type { COMMANDS } from "@/constants";
 
 export interface JsonData {
-  [key: string]: string;
+	[key: string]: string;
 }
 
 export type Schema = {
-  type: string;
-  name: string;
-  message: string;
-  validate?: (input: string) => string | boolean;
+	type: string;
+	name: string;
+	message: string;
+	validate?: (input: string) => string | boolean;
 };
 
 export interface CommandConstant {
-  command: string;
-  description: string;
-  [key: string]: string;
+	command: string;
+	description: string;
+	[key: string]: string;
 }
 
 export type CliCommand = keyof typeof COMMANDS;
@@ -22,12 +22,12 @@ export type CliCommand = keyof typeof COMMANDS;
 export type ID = string;
 
 export interface BaseEntity {
-  id: ID;
-  createdAt: string;
-  updatedAt: string;
+	id: ID;
+	createdAt: string;
+	updatedAt: string;
 }
 
 export interface ContactEntity extends BaseEntity {
-  username: string;
-  phone: string;
+	username: string;
+	phone: string;
 }

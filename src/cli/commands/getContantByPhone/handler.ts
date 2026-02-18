@@ -5,31 +5,31 @@ import { SpinnerLoader } from "@/utils/spinnerLoader";
 import { wait } from "@/utils/wait";
 
 export type GetContactByPhoneHandler = ({
-  phone,
+	phone,
 }: {
-  phone: string;
+	phone: string;
 }) => Promise<void>;
 
 const spinnerLoader = new SpinnerLoader();
 
 export const getContactByPhoneHandler: GetContactByPhoneHandler = async ({
-  phone,
+	phone,
 }) => {
-  spinnerLoader.show();
-  await wait();
+	spinnerLoader.show();
+	await wait();
 
-  try {
-    const response = await contactsRepository.findByPhone(phone);
-    if (!response) {
-      spinnerLoader.error("No contact found");
-      return;
-    }
+	try {
+		const response = await contactsRepository.findByPhone(phone);
+		if (!response) {
+			spinnerLoader.error("No contact found");
+			return;
+		}
 
-    spinnerLoader.success(`${response.username}:${response.phone}`);
-  } catch (err) {
-    handleError(err, spinnerLoader);
-  } finally {
-    spinnerLoader.kill();
-    goBackButton();
-  }
+		spinnerLoader.success(`${response.username}:${response.phone}`);
+	} catch (err) {
+		handleError(err, spinnerLoader);
+	} finally {
+		spinnerLoader.kill();
+		goBackButton();
+	}
 };

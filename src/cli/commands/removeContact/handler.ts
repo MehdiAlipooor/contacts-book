@@ -6,28 +6,28 @@ import { SpinnerLoader } from "@/utils/spinnerLoader";
 const spinnerLoader = new SpinnerLoader();
 
 export type RemoveContactHandler = ({
-  username,
+	username,
 }: {
-  username: string;
+	username: string;
 }) => Promise<void>;
 
 export const removeContactHandler: RemoveContactHandler = async ({
-  username,
+	username,
 }) => {
-  spinnerLoader.show();
+	spinnerLoader.show();
 
-  try {
-    const response = await contactsRepository.search(username);
-    if (!response) {
-      spinnerLoader.error("No contact found");
-      return;
-    }
+	try {
+		const response = await contactsRepository.search(username);
+		if (!response) {
+			spinnerLoader.error("No contact found");
+			return;
+		}
 
-    contactsRepository.delete(response?.[0]?.id);
-    spinnerLoader.success("Contact removed");
-  } catch (err) {
-    handleError(err, spinnerLoader);
-  } finally {
-    goBackButton();
-  }
+		contactsRepository.delete(response?.[0]?.id);
+		spinnerLoader.success("Contact removed");
+	} catch (err) {
+		handleError(err, spinnerLoader);
+	} finally {
+		goBackButton();
+	}
 };

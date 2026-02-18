@@ -6,10 +6,10 @@ import { removeContact } from "@/cli/commands/removeContact";
 import { updateContact } from "@/cli/commands/updateContact";
 
 export const COMMANDS = {
-  "new-contact": generateContact,
-  list: getContentsList,
-  "get-by-username": getContantByUsername,
-  "get-by-phone": getContantByPhone,
-  remove: removeContact,
-  update: updateContact,
+	"new-contact": generateContact,
+	list: getContentsList,
+	"get-by-username": getContantByUsername,
+	"get-by-phone": getContantByPhone,
+	remove: removeContact,
+	update: updateContact,
 };
