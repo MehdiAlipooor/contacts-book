@@ -1,10 +1,5 @@
 import type { COMMANDS } from "@/constants";
 
-export interface Contact {
-  username: string;
-  phone: string;
-}
-
 export interface JsonData {
   [key: string]: string;
 }
@@ -30,4 +25,9 @@ export interface BaseEntity {
   id: ID;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ContactEntity extends BaseEntity {
+  username: string;
+  phone: string;
 }

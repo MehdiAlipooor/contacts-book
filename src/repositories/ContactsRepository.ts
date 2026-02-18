@@ -1,10 +1,5 @@
 import type { JsonDriver } from "@/lib/DbDriver";
-import type { BaseEntity } from "@/types";
-
-export interface ContactEntity extends BaseEntity {
-  username: string;
-  phone: string;
-}
+import type { ContactEntity } from "@/types";
 
 export interface ContactRepositoryContracts {
   findAll(): Promise<ContactEntity[]>;

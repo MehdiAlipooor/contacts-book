@@ -1,5 +1,5 @@
-import { randomUUID } from "crypto";
-import { readFile, rename, writeFile } from "fs/promises";
+import { randomUUID } from "node:crypto";
+import { readFile, writeFile } from "node:fs/promises";
 import type { BaseEntity, ID } from "@/types";
 
 export interface StorageDriver<T extends BaseEntity> {
@@ -7,11 +7,9 @@ export interface StorageDriver<T extends BaseEntity> {
   findAll(): Promise<T[]>;
 
   findBy<K extends keyof T>(key: K, value: T[K]): Promise<T | null>;
-
   findMany<K extends keyof T>(key: K, value: string): Promise<T[]>;
 
   create(data: Omit<T, "id" | "createdAt" | "updatedAt">): Promise<T>;
-
   update(id: ID, payload: Partial<T>): Promise<T | null>;
 
   delete(id: ID): Promise<boolean>;
@@ -36,11 +34,9 @@ export class JsonDriver<T extends BaseEntity> implements StorageDriver<T> {
   }
 
   private async write(data: T[]): Promise<void> {
-    const tempPath = `${this.filePath}.tmp`;
-    const json = JSON.stringify(data, null, 2);
+    const json = JSON.stringify(data);
 
-    await writeFile(tempPath, json, "utf-8");
-    await rename(tempPath, this.filePath);
+    await writeFile(this.filePath, json, "utf-8");
   }
 
   async findAll(): Promise<T[]> {
