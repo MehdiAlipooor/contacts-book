@@ -1,4 +1,4 @@
-import { JsonDriver } from "@/lib/DbDriver";
+import { JsonDriver } from "@/lib/JsonDriver";
 import { ContactsRepository } from "@/repositories/contactsRepository";
 import type { ContactEntity } from "@/types";
 import { getContactStoragePath } from "@/utils/getContactStoragePath";
