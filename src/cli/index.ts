@@ -1,6 +1,14 @@
-import { getCliCommand } from "@/utils/getCliCommand";
-import { runCommand } from "@/utils/runCommand";
+import { jsonFileManager } from "@/cli/container";
+import { getContactStoragePath } from "@/utils/getContactStoragePath";
 
-export function bootstrapCli() {
-	runCommand(getCliCommand());
+export async function bootstrapp() {
+  jsonFileManager.connect(getContactStoragePath());
+
+  jsonFileManager.on("connect", () => {
+    console.log("Connected");
+  });
+
+  jsonFileManager.on("error", () => {
+    throw new Error("Error");
+  });
 }

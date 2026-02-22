@@ -1,3 +1,11 @@
-import { bootstrapCli } from "@/cli";
+import { bootstrapp } from "@/cli";
+import { getCliCommand } from "@/utils/getCliCommand";
+import { runCommand } from "@/utils/runCommand";
 
-bootstrapCli();
+try {
+  bootstrapp();
+} catch {
+  process.exit(0);
+}
+
+runCommand(getCliCommand());
