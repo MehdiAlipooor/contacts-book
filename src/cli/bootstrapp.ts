@@ -1,14 +1,15 @@
-import { jsonFileManager } from "@/cli/container";
+import { dbDriver } from "@/cli/container";
 import { getContactStoragePath } from "@/utils/getContactStoragePath";
 
-export async function bootstrapp() {
-  jsonFileManager.connect(getContactStoragePath());
+export async function bootstrapp(onConnect: () => void) {
+  dbDriver.connect(getContactStoragePath());
 
-  jsonFileManager.on("connect", () => {
+  dbDriver.on("connect", () => {
     console.log("Connected");
+    onConnect();
   });
 
-  jsonFileManager.on("error", () => {
-    throw new Error("Error");
+  dbDriver.on("error", () => {
+    process.exit(0);
   });
 }
