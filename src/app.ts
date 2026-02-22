@@ -3,9 +3,9 @@ import { getCliCommand } from "@/utils/getCliCommand";
 import { runCommand } from "@/utils/runCommand";
 
 try {
-  bootstrapp();
+	bootstrapp();
 } catch {
-  process.exit(0);
+	process.exit(0);
 }
 
 runCommand(getCliCommand());
